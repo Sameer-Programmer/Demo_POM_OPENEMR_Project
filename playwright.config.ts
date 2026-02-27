@@ -54,6 +54,13 @@ export default defineConfig({
       testMatch: '**/patient.setup.ts',
     },
 
+    // ✅ Login — No dependencies, No storageState
+    // Login does its OWN login!
+    {
+      name: 'login',
+      testMatch: '**/login.spec.ts',
+    },
+
     // STEP 2 — All PARALLEL after setup
     {
       name: 'ledger',
@@ -79,4 +86,16 @@ export default defineConfig({
   ],
 
 });
+/*
+```
 
+---
+
+## Why Login Has No Dependencies?
+```
+setup     → creates patient + saves session.json
+login     → does its OWN login — no session needed!
+ledger    → needs session.json from setup
+appointment → needs session.json from setup
+encounter → needs session.json from setup
+*/
